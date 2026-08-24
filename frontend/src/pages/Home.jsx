@@ -86,8 +86,8 @@ export default function Home({ onOpenRFQ }) {
             <div className="lg:col-span-5 relative">
               <div className="relative z-10 rounded-2xl overflow-hidden border border-slate-800 shadow-xl bg-slate-900">
                 <img 
-                  src="https://images.unsplash.com/photo-1543362906-acfc16c67564?auto=format&fit=crop&w=1000&q=80" 
-                  alt="Ceylon Agricultural Harvest" 
+                  src="https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=1000&q=80" 
+                  alt="Ceylon King Coconut Harvest" 
                   className="w-full h-[360px] object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
