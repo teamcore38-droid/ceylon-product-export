@@ -120,13 +120,6 @@ export default function Navbar({ onOpenRFQ }) {
               >
                 Contact
               </Link>
-
-              <Link 
-                to="/admin" 
-                className="whitespace-nowrap text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-400 hover:text-white transition-colors"
-              >
-                Admin CRM
-              </Link>
             </div>
 
             {/* Action Buttons */}
@@ -164,7 +157,6 @@ export default function Navbar({ onOpenRFQ }) {
             <Link to="/certifications" onClick={() => setIsMobileOpen(false)} className="block text-slate-200 font-medium py-2 hover:text-amber-400">Certifications</Link>
             <Link to="/blog" onClick={() => setIsMobileOpen(false)} className="block text-slate-200 font-medium py-2 hover:text-amber-400">Insights Blog</Link>
             <Link to="/contact" onClick={() => setIsMobileOpen(false)} className="block text-slate-200 font-medium py-2 hover:text-amber-400">Contact Us</Link>
-            <Link to="/admin" onClick={() => setIsMobileOpen(false)} className="block text-slate-400 text-xs py-2">Admin Portal</Link>
 
             <button 
               onClick={() => { setIsMobileOpen(false); onOpenRFQ(); }}
