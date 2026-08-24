@@ -34,8 +34,8 @@ const sampleProducts = [
     ],
     uses: ['Direct Natural Hydration', 'High-end Hotel & Resort Beverage', 'Post-workout Isotonic Drink', 'Ayurvedic & Wellness Formulations'],
     images: [
-      'https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1544378730-8b5104b18790?auto=format&fit=crop&w=1000&q=80'
+      '/images/king_coconut.webp',
+      '/images/king_coconut.webp'
     ],
     isFeatured: true
   },
@@ -70,7 +70,7 @@ const sampleProducts = [
     ],
     uses: ['Supermarket Produce Aisles', 'Gourmet Juice Bars', 'Flight Catering & Luxury Lounges'],
     images: [
-      'https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=1000&q=80'
+      '/images/king_coconut.webp'
     ],
     isFeatured: true
   },
@@ -273,7 +273,7 @@ Key Bio-chemical Advantages:
 For global importers, Sri Lankan King Coconuts represent the golden standard of wellness beverages.`,
     author: 'Dr. N. Jayawardena, Agricultural Biochemist',
     readTime: '5 min read',
-    image: 'https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=1000&q=80',
+    image: '/images/king_coconut.webp',
     publishedAt: new Date('2026-08-10')
   },
   {

@@ -86,7 +86,7 @@ export default function Home({ onOpenRFQ }) {
             <div className="lg:col-span-5 relative">
               <div className="relative z-10 rounded-2xl overflow-hidden border border-slate-800 shadow-xl bg-slate-900">
                 <img 
-                  src="https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=1000&q=80" 
+                  src="/images/king_coconut.webp" 
                   alt="Ceylon King Coconut Harvest" 
                   className="w-full h-[360px] object-cover"
                 />
@@ -250,7 +250,7 @@ export default function Home({ onOpenRFQ }) {
 
           <button 
             onClick={() => onOpenRFQ()}
-            className="bg-slate-950 hover:bg-slate-900 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg hover:scale-105 transition-all text-xs sm:text-sm shrink-0 flex items-center gap-2"
+            className="bg-slate-950 hover:bg-slate-900 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg hover:scale-105 transition-all flex items-center gap-2 text-xs sm:text-sm shrink-0 flex items-center gap-2"
           >
             <FileText className="w-4 h-4 text-amber-400" /> Start RFQ Quote Builder
           </button>
