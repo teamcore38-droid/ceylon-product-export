@@ -70,7 +70,7 @@ const sampleProducts = [
     ],
     uses: ['Supermarket Produce Aisles', 'Gourmet Juice Bars', 'Flight Catering & Luxury Lounges'],
     images: [
-      '/images/king_coconut.webp'
+      '/images/diamond_cut_king_coconut.webp'
     ],
     isFeatured: true
   },
@@ -107,7 +107,7 @@ const sampleProducts = [
     ],
     uses: ['Asian Supermarkets & Restaurants', 'Som Tum & Green Papaya Salad Processing', 'Pickling & Food Dehydration', 'Meat Tenderizing Industry'],
     images: [
-      'https://images.unsplash.com/photo-1617112848923-cc2234396a8d?auto=format&fit=crop&w=1000&q=80'
+      '/images/green_papaya.webp'
     ],
     isFeatured: true
   },
@@ -139,7 +139,7 @@ const sampleProducts = [
     ],
     uses: ['Brewery Chill-proofing & Clarification', 'Pharmaceutical Digestive Aids', 'Cosmetic Exfoliating Creams', 'Industrial Meat Tenderizer'],
     images: [
-      'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=1000&q=80'
+      '/images/green_papaya.webp'
     ],
     isFeatured: false
   },
