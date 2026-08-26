@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Blog = require('../models/Blog');
 const { sampleBlogs } = require('../data/mockData');
 
@@ -7,9 +8,11 @@ const { sampleBlogs } = require('../data/mockData');
 router.get('/', async (req, res) => {
   try {
     let blogs = [];
-    try {
-      blogs = await Blog.find().sort({ publishedAt: -1 });
-    } catch (e) {}
+    if (mongoose.connection.readyState === 1) {
+      try {
+        blogs = await Blog.find().sort({ publishedAt: -1 });
+      } catch (e) {}
+    }
 
     if (!blogs || blogs.length === 0) {
       blogs = sampleBlogs;
@@ -25,9 +28,11 @@ router.get('/', async (req, res) => {
 router.get('/:slug', async (req, res) => {
   try {
     let blog = null;
-    try {
-      blog = await Blog.findOne({ slug: req.params.slug });
-    } catch (e) {}
+    if (mongoose.connection.readyState === 1) {
+      try {
+        blog = await Blog.findOne({ slug: req.params.slug });
+      } catch (e) {}
+    }
 
     if (!blog) {
       blog = sampleBlogs.find(b => b.slug === req.params.slug);

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Product = require('../models/Product');
 const { sampleProducts } = require('../data/mockData');
 
@@ -16,10 +17,12 @@ router.get('/', async (req, res) => {
     }
 
     let products = [];
-    try {
-      products = await Product.find(query).sort({ createdAt: -1 });
-    } catch (e) {
-      console.warn('Database query failed, returning fallback dataset.');
+    if (mongoose.connection.readyState === 1) {
+      try {
+        products = await Product.find(query).sort({ createdAt: -1 });
+      } catch (e) {
+        console.warn('Database query failed, returning fallback dataset.');
+      }
     }
 
     if (!products || products.length === 0) {
@@ -42,9 +45,11 @@ router.get('/', async (req, res) => {
 router.get('/:slug', async (req, res) => {
   try {
     let product = null;
-    try {
-      product = await Product.findOne({ slug: req.params.slug });
-    } catch (e) {}
+    if (mongoose.connection.readyState === 1) {
+      try {
+        product = await Product.findOne({ slug: req.params.slug });
+      } catch (e) {}
+    }
 
     if (!product) {
       product = sampleProducts.find(p => p.slug === req.params.slug);

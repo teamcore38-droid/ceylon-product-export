@@ -8,9 +8,11 @@ dotenv.config();
 
 const app = express();
 
-// Middleware to ensure DB connection on serverless requests
-app.use(async (req, res, next) => {
-  await connectDB();
+// Start the database connection without blocking the request. Routes already
+// handle database errors by serving the fallback dataset, so a slow/unavailable
+// MongoDB must not make the whole site appear stuck on loading.
+app.use((req, res, next) => {
+  connectDB().catch(() => {});
   next();
 });
 
