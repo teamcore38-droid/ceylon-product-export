@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Lock, Users, Package, FileText, CheckCircle, Clock, AlertCircle, LogOut } from 'lucide-react';
+import { ShieldCheck, Lock, Users, Package, FileText, CheckCircle, Clock, AlertCircle, LogOut, Upload, Image } from 'lucide-react';
 import axios from 'axios';
 
 export default function AdminDashboard() {
@@ -7,8 +7,15 @@ export default function AdminDashboard() {
   const [email, setEmail] = useState('admin@ceylonthembiliexports.lk');
   const [password, setPassword] = useState('admin123');
   const [loginError, setLoginError] = useState('');
+  const [adminToken, setAdminToken] = useState('');
   
   const [rfqs, setRfqs] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState('');
+  const [uploadError, setUploadError] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
   const [loading, setLoading] = useState(false);
 
@@ -19,15 +26,58 @@ export default function AdminDashboard() {
       const res = await axios.post('/api/auth/login', { email, password });
       if (res.data.success) {
         setIsAuthenticated(true);
+        setAdminToken(res.data.token);
         fetchRFQs();
+        fetchProducts();
       }
     } catch (err) {
       if (email === 'admin@ceylonthembiliexports.lk' && password === 'admin123') {
         setIsAuthenticated(true);
         fetchRFQs();
+        fetchProducts();
+        setLoginError('The demo fallback login cannot upload images. Start the API and sign in again.');
       } else {
         setLoginError('Invalid credentials. Demo admin: admin@ceylonthembiliexports.lk / admin123');
       }
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get('/api/products');
+      if (res.data.success) {
+        setProducts(res.data.data);
+        setSelectedProductId(current => current || res.data.data[0]?._id || '');
+      }
+    } catch (err) {
+      setUploadError('Unable to load products for image management.');
+    }
+  };
+
+  const uploadProductImage = async (e) => {
+    e.preventDefault();
+    if (!selectedProductId || !selectedImage) return;
+
+    setUploadingImage(true);
+    setUploadMessage('');
+    setUploadError('');
+    const formData = new FormData();
+    formData.append('image', selectedImage);
+
+    try {
+      const res = await axios.post(`/api/upload/products/${selectedProductId}/image`, formData, {
+        headers: { Authorization: `Bearer ${adminToken}` }
+      });
+      if (res.data.success) {
+        setProducts(current => current.map(product => product._id === selectedProductId ? res.data.data.product : product));
+        setSelectedImage(null);
+        e.target.reset();
+        setUploadMessage('Image uploaded to Cloudinary and added to the product.');
+      }
+    } catch (err) {
+      setUploadError(err.response?.data?.message || 'Image upload failed.');
+    } finally {
+      setUploadingImage(false);
     }
   };
 
@@ -153,6 +203,58 @@ export default function AdminDashboard() {
             {rfqs.filter(r => r.status === 'Quoted' || r.status === 'Closed Won').length}
           </span>
         </div>
+      </div>
+
+      {/* Product Image Manager */}
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-5">
+        <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center">
+            <Image className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="font-serif font-bold text-lg text-white">Product Image Manager</h3>
+            <p className="text-xs text-slate-400">Upload product images directly to Cloudinary.</p>
+          </div>
+        </div>
+
+        {uploadMessage && <div className="bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs p-3 rounded-xl">{uploadMessage}</div>}
+        {uploadError && <div className="bg-rose-950/60 border border-rose-500/30 text-rose-300 text-xs p-3 rounded-xl">{uploadError}</div>}
+
+        <form onSubmit={uploadProductImage} className="flex flex-col md:flex-row items-end gap-4">
+          <div className="w-full md:flex-1">
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Product</label>
+            <select
+              value={selectedProductId}
+              onChange={(e) => setSelectedProductId(e.target.value)}
+              required
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
+            >
+              <option value="">Select a product</option>
+              {products.map(product => <option key={product._id} value={product._id}>{product.name}</option>)}
+            </select>
+          </div>
+          <div className="w-full md:flex-1">
+            <label className="block text-xs font-semibold text-slate-300 mb-1">Image (max 5 MB)</label>
+            <input
+              type="file"
+              accept="image/*"
+              required
+              onChange={(e) => setSelectedImage(e.target.files?.[0] || null)}
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 file:mr-3 file:border-0 file:bg-slate-800 file:text-amber-400 file:px-2 file:py-1 file:rounded-lg"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={uploadingImage || !adminToken}
+            className="w-full md:w-auto bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs flex items-center justify-center gap-2"
+          >
+            <Upload className="w-4 h-4" /> {uploadingImage ? 'Uploading...' : 'Upload Image'}
+          </button>
+        </form>
+
+        {products.length > 0 && selectedProductId && (
+          <p className="text-[11px] text-slate-500">Current images: {products.find(product => product._id === selectedProductId)?.images?.length || 0}. New uploads are appended to the product gallery.</p>
+        )}
       </div>
 
       {/* Table & Filters */}

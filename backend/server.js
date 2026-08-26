@@ -23,6 +23,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/products', require('./routes/productRoutes'));
+app.use('/api/upload', require('./routes/uploadRoutes'));
 app.use('/api/rfq', require('./routes/rfqRoutes'));
 app.use('/api/blogs', require('./routes/blogRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
