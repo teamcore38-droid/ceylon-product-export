@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export default function WhatsAppFloat() {
   const [showTooltip, setShowTooltip] = useState(false);
-  const phoneNumber = "94777285589"; // Commercial Export WhatsApp Number
+  const phoneNumber = "94760048438"; // Commercial Export WhatsApp Number
   const defaultMessage = encodeURIComponent("Hello! I am interested in importing Ceylon King Coconut, Green Papaya, or Tapioca. Please provide container availability and pro-forma quote details.");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${defaultMessage}`;
 

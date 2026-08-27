@@ -65,7 +65,7 @@ export default function Contact() {
                 <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 <div>
                   <strong className="text-white block text-xs mb-0.5">Phone & WhatsApp:</strong>
-                  <span className="font-mono text-emerald-400 text-xs font-bold">+94 77 728 5589</span>
+                  <span className="font-mono text-emerald-400 text-xs font-bold">+94 76 004 8438</span>
                 </div>
               </div>
 
@@ -89,12 +89,12 @@ export default function Contact() {
             {/* WhatsApp Quick Connect */}
             <div className="pt-3 border-t border-slate-800">
               <a 
-                href="https://wa.me/94777285589?text=Hello,%20I%20am%20interested%20in%20importing%20King%20Coconut,%20Green%20Papaya%20or%20Tapioca."
+                href="https://wa.me/94760048438?text=Hello,%20I%20am%20interested%20in%20importing%20King%20Coconut,%20Green%20Papaya%20or%20Tapioca."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 text-xs shadow-md shadow-emerald-900/30"
               >
-                <MessageSquare className="w-4 h-4" /> Quick Connect on WhatsApp (+94 77 728 5589)
+                <MessageSquare className="w-4 h-4" /> Quick Connect on WhatsApp (+94 76 004 8438)
               </a>
             </div>
           </div>

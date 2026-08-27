@@ -24,8 +24,8 @@ export default function Navbar({ onOpenRFQ }) {
           </div>
 
           <div className="flex items-center gap-3 text-[11px] sm:text-xs">
-            <a href="tel:+94777285589" className="hover:text-amber-400 transition-colors flex items-center gap-1 font-mono whitespace-nowrap">
-              <PhoneCall className="w-3 h-3 text-amber-400" /> +94 77 728 5589
+            <a href="tel:+94760048438" className="hover:text-amber-400 transition-colors flex items-center gap-1 font-mono whitespace-nowrap">
+              <PhoneCall className="w-3 h-3 text-amber-400" /> +94 76 004 8438
             </a>
             <span className="text-emerald-800">|</span>
             <span className="inline-flex items-center gap-1 text-slate-300 whitespace-nowrap">

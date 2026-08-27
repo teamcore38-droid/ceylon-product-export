@@ -52,7 +52,6 @@ export default function Footer() {
               <li><Link to="/certifications" className="hover:text-amber-400 transition-colors">Certifications & Standards</Link></li>
               <li><Link to="/blog" className="hover:text-amber-400 transition-colors">Insights Blog</Link></li>
               <li><Link to="/contact" className="hover:text-amber-400 transition-colors">Contact Head Office</Link></li>
-              <li><Link to="/admin" className="hover:text-amber-400 transition-colors">Admin Back-Office</Link></li>
             </ul>
           </div>
 
@@ -66,7 +65,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-amber-400 shrink-0" />
-                <span className="font-mono text-white">+94 77 728 5589</span>
+                <span className="font-mono text-white">+94 76 004 8438</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-amber-400 shrink-0" />
