@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import RFQModal from './components/RFQModal';
+import WhatsAppFloat from './components/WhatsAppFloat';
 
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -43,6 +44,9 @@ export default function App() {
         </main>
 
         <Footer />
+
+        {/* Persistent Floating WhatsApp Direct Connect Button */}
+        <WhatsAppFloat />
 
         <RFQModal 
           isOpen={isRFQOpen} 
