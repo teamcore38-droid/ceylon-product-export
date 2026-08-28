@@ -7,9 +7,15 @@ const { sendRFQEmail } = require('../utils/emailService');
 // POST Submit new RFQ Quote Request
 router.post('/', async (req, res) => {
   try {
-    const { companyName, contactPerson, email, phone, country, product, quantity, destinationPort } = req.body;
+    let { companyName, contactPerson, email, phone, country, product, quantity, destinationPort } = req.body;
+
+    // Fallback country from destination port if not explicitly provided
+    if (!country && destinationPort) {
+      country = destinationPort;
+      req.body.country = destinationPort;
+    }
     
-    if (!companyName || !contactPerson || !email || !country || !product || !quantity || !destinationPort) {
+    if (!companyName || !contactPerson || !email || !product || !quantity || !destinationPort) {
       return res.status(400).json({ success: false, message: 'Please complete all required fields.' });
     }
 

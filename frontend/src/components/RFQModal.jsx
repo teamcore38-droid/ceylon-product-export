@@ -46,7 +46,12 @@ export default function RFQModal({ isOpen, onClose, defaultProduct }) {
     setErrorMsg('');
 
     try {
-      const res = await axios.post('/api/rfq', formData);
+      const payload = {
+        ...formData,
+        country: formData.country || formData.destinationPort || 'Global Destination'
+      };
+
+      const res = await axios.post('/api/rfq', payload);
       if (res.data.success) {
         setSubmitted(true);
       }
