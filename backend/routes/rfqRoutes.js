@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const RFQ = require('../models/RFQ');
 const { sampleRFQs } = require('../data/mockData');
+const { sendRFQEmail } = require('../utils/emailService');
 
 // POST Submit new RFQ Quote Request
 router.post('/', async (req, res) => {
@@ -20,6 +21,9 @@ router.post('/', async (req, res) => {
       console.warn('Database save skipped, returning mock created RFQ acknowledgment.');
       savedRFQ = { ...req.body, _id: 'rfq_' + Date.now(), createdAt: new Date() };
     }
+
+    // Trigger automated email dispatch asynchronously
+    sendRFQEmail(savedRFQ).catch(err => console.error('RFQ Email trigger background error:', err));
 
     res.status(201).json({
       success: true,
