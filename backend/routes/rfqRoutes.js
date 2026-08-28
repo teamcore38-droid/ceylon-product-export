@@ -23,17 +23,53 @@ router.post('/', async (req, res) => {
     }
 
     // Trigger automated email dispatch asynchronously
-    sendRFQEmail(savedRFQ).catch(err => console.error('RFQ Email trigger background error:', err));
+    const emailResult = await sendRFQEmail(savedRFQ);
 
     res.status(201).json({
       success: true,
       message: 'Request for Quote submitted successfully! Our export manager will contact you within 12 hours.',
       quoteId: savedRFQ._id || 'RFQ-' + Math.floor(100000 + Math.random() * 900000),
-      data: savedRFQ
+      data: savedRFQ,
+      emailDispatch: emailResult
     });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
+});
+
+// GET Test Email Endpoint (To test Vercel SMTP variables instantly)
+router.get('/test-email', async (req, res) => {
+  const testRFQ = {
+    companyName: 'Vercel Deployment Test LLC',
+    contactPerson: 'Admin Diagnostic Test',
+    email: 'toytot000@gmail.com',
+    phone: '+94 76 004 8438',
+    country: 'Sri Lanka',
+    product: 'Fresh Whole King Coconut (Ceylon Thembili)',
+    quantity: 1,
+    unit: '40ft High Cube Reefer',
+    incoterms: 'CIF Dubai',
+    destinationPort: 'Jebel Ali Port',
+    additionalNotes: 'Diagnostic verification of automated email notification system.'
+  };
+
+  const smtpUser = process.env.SMTP_USER || 'NOT SET';
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER || 'NOT SET';
+  const hasPass = process.env.SMTP_PASS ? 'YES (Configured)' : 'NO (Missing)';
+
+  const result = await sendRFQEmail(testRFQ);
+
+  res.json({
+    testStatus: result.success ? 'SUCCESS' : 'FAILED',
+    envDiagnostics: {
+      SMTP_USER: smtpUser,
+      ADMIN_EMAIL: adminEmail,
+      SMTP_PASS_CONFIGURED: hasPass,
+      SMTP_HOST: process.env.SMTP_HOST || 'smtp.gmail.com (Default)',
+      SMTP_PORT: process.env.SMTP_PORT || '587 (Default)'
+    },
+    emailResult: result
+  });
 });
 
 // GET list all RFQs (Admin CRM)
